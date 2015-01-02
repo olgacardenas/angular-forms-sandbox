@@ -92,4 +92,24 @@ describe('Service: FormCondition', function () {
     });
   });
 
+  describe("at least x special char", function () {
+    it("generate at-least-one-special-char condition", function () {
+      var validTarget = "guay!";
+      var noValidTarget = "guay";
+      var condition = FormCondition.create({validate: 'at-least-x-special', value: 1});
+
+      expect(condition.isValid(noValidTarget)).toBeFalsy();
+      expect(condition.isValid(validTarget)).toBeTruthy();
+    });
+
+    it("generate at-least-two-special-char condition", function () {
+      var validTarget = "g$ay!!";
+      var noValidTarget = "guay!";
+      var condition = FormCondition.create({validate: 'at-least-x-special', value: 2});
+
+      expect(condition.isValid(noValidTarget)).toBeFalsy();
+      expect(condition.isValid(validTarget)).toBeTruthy();
+    });
+  });
+
 });

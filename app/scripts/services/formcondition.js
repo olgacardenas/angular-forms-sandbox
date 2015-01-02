@@ -10,46 +10,53 @@
 angular.module('angularFormsSandboxApp')
   .factory('FormCondition', function () {
 
-    function isNullOrUndefined (value){
+    function isNullOrUndefined(value) {
       return value === null || angular.isUndefined(value);
     }
 
-    function validateMaxSize (target, value) {
+    function validateMaxSize(target, value) {
       return target.length <= value;
     }
 
-    function validateAtLeastXNumber (target, value){
+    function validateAtLeastXNumber(target, value) {
       var patt = new RegExp("[0-9_]{" + value + "}");
       return patt.test(target);
     }
 
-    function validateAtLeastXUppercase (target, value){
+    function validateAtLeastXUppercase(target, value) {
       var patt = new RegExp("^(.*?[A-Z]){" + value + ",}.*$");
       return patt.test(target);
     }
 
-    function validateAtLeastXLowercase (target, value){
+    function validateAtLeastXLowercase(target, value) {
       var patt = new RegExp("^(.*?[a-z]){" + value + ",}.*$");
       return patt.test(target);
     }
 
-    function getValidatorFn (validationType){
-      switch (validationType){
+
+    function validateAtLeastXSpecial(target, value) {
+      var patt = new RegExp("^(.*?[!@#0^&*()+]){" + value + ",}.*$");
+      return patt.test(target);
+    }
+
+    function getValidatorFn(validationType) {
+      switch (validationType) {
         case 'max-size': return validateMaxSize;
         case 'at-least-x-number': return validateAtLeastXNumber;
         case 'at-least-x-uppercase': return validateAtLeastXUppercase;
         case 'at-least-x-lowercase': return validateAtLeastXLowercase;
-        default: return function (){};
+        case 'at-least-x-special': return validateAtLeastXSpecial;
+        default: return function () { };
       }
     }
 
-    var create = function (conf){
-      var validator = getValidatorFn (conf.validate);
+    var create = function (conf) {
+      var validator = getValidatorFn(conf.validate);
 
-      return  {
+      return {
         validate: conf.validate,
         value: conf.value,
-        isValid: function (target){
+        isValid: function (target) {
           return !isNullOrUndefined(target) && validator(target, this.value);
         }
       };
