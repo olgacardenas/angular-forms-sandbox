@@ -10,43 +10,46 @@
 angular.module('angularFormsSandboxApp')
   .factory('FormCondition', function () {
 
-    function isNullOrUndefined(value) {
-      return value === null || angular.isUndefined(value);
-    }
-
-    function validateMaxSize(target, value) {
-      return target.length <= value;
-    }
-
-    function validateAtLeastXNumber(target, value) {
-      var patt = new RegExp("[0-9_]{" + value + "}");
-      return patt.test(target);
-    }
-
-    function validateAtLeastXUppercase(target, value) {
-      var patt = new RegExp("^(.*?[A-Z]){" + value + ",}.*$");
-      return patt.test(target);
-    }
-
-    function validateAtLeastXLowercase(target, value) {
-      var patt = new RegExp("^(.*?[a-z]){" + value + ",}.*$");
-      return patt.test(target);
-    }
-
-
-    function validateAtLeastXSpecial(target, value) {
-      var patt = new RegExp("^(.*?[!@#0^*()+]){" + value + ",}.*$");
-      return patt.test(target);
-    }
+    var validate = {
+      isNullOrUndefined: function (value) {
+        return value === null || angular.isUndefined(value);
+      },
+      maxSize: function (target, value) {
+        return target.length <= value;
+      },
+      atLeastXNumber: function (target, value) {
+        var patt = new RegExp("[0-9_]{" + value + "}");
+        return patt.test(target);
+      },
+      atLeastXUppercase: function (target, value) {
+        var patt = new RegExp("^(.*?[A-Z]){" + value + ",}.*$");
+        return patt.test(target);
+      },
+      atLeastXLowercase: function (target, value) {
+        var patt = new RegExp("^(.*?[a-z]){" + value + ",}.*$");
+        return patt.test(target);
+      },
+      atLeastXSpecial: function (target, value) {
+        var patt = new RegExp("^(.*?[!@#0^*()+]){" + value + ",}.*$");
+        return patt.test(target);
+      }
+    };
 
     function getValidatorFn(validationType) {
       switch (validationType) {
-        case 'max-size': return validateMaxSize;
-        case 'at-least-x-number': return validateAtLeastXNumber;
-        case 'at-least-x-uppercase': return validateAtLeastXUppercase;
-        case 'at-least-x-lowercase': return validateAtLeastXLowercase;
-        case 'at-least-x-special': return validateAtLeastXSpecial;
-        default: return function () { };
+        case 'max-size':
+          return validate.maxSize;
+        case 'at-least-x-number':
+          return validate.atLeastXNumber;
+        case 'at-least-x-uppercase':
+          return validate.atLeastXUppercase;
+        case 'at-least-x-lowercase':
+          return validate.atLeastXLowercase;
+        case 'at-least-x-special':
+          return validate.atLeastXSpecial;
+        default:
+          return function () {
+          };
       }
     }
 
@@ -57,7 +60,7 @@ angular.module('angularFormsSandboxApp')
         validate: conf.validate,
         value: conf.value,
         isValid: function (target) {
-          return !isNullOrUndefined(target) && validator(target, this.value);
+          return !validate.isNullOrUndefined(target) && validator(target, this.value);
         }
       };
     };
