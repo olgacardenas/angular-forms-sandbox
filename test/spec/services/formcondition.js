@@ -72,4 +72,24 @@ describe('Service: FormCondition', function () {
     });
   });
 
+  describe("at least x lowercase", function () {
+    it("generate at-least-one-lowercase condition", function () {
+      var validTarget = "GUaY";
+      var noValidTarget = "GUAY";
+      var condition = FormCondition.create({validate: 'at-least-x-lowercase', value: 1});
+
+      expect(condition.isValid(noValidTarget)).toBeFalsy();
+      expect(condition.isValid(validTarget)).toBeTruthy();
+    });
+
+    it("generate at-least-two-lowercase condition", function () {
+      var validTarget = "guay";
+      var noValidTarget = "gUAY";
+      var condition = FormCondition.create({validate: 'at-least-x-lowercase', value: 2});
+
+      expect(condition.isValid(noValidTarget)).toBeFalsy();
+      expect(condition.isValid(validTarget)).toBeTruthy();
+    });
+  });
+
 });
