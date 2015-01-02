@@ -18,7 +18,7 @@ angular.module('angularFormsSandboxApp')
         return target.length <= value;
       },
       atLeastXNumber: function (target, value) {
-        var patt = new RegExp("[0-9_]{" + value + "}");
+        var patt = new RegExp("^(.*?[0-9]){" + value + ",}.*$");
         return patt.test(target);
       },
       atLeastXUppercase: function (target, value) {
@@ -30,7 +30,7 @@ angular.module('angularFormsSandboxApp')
         return patt.test(target);
       },
       atLeastXSpecial: function (target, value) {
-        var patt = new RegExp("^(.*?[!@#0^*()+]){" + value + ",}.*$");
+        var patt = new RegExp("^(.*?[!@#$0^*()+]){" + value + ",}.*$");
         return patt.test(target);
       }
     };

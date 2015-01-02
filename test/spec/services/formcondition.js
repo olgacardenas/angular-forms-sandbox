@@ -52,7 +52,7 @@ describe('Service: FormCondition', function () {
     });
 
     it("generate at-least-two-number condition", function () {
-      var validTargets = ["gu4y123"];
+      var validTargets = ["gu4y123", "gu4y1"];
       var noValidTargets = ["gu4y"];
       evaluateCondition(validTargets, noValidTargets, 'at-least-x-number', 2);
     });
@@ -66,7 +66,7 @@ describe('Service: FormCondition', function () {
     });
 
     it("generate at-least-two-uppercase condition", function () {
-      var validTargets = ["gUAY"];
+      var validTargets = ["gUAY", "gUAy"];
       var noValidTargets = ["guaY"];
       evaluateCondition(validTargets, noValidTargets, 'at-least-x-uppercase', 2);
     });
@@ -80,7 +80,7 @@ describe('Service: FormCondition', function () {
     });
 
     it("generate at-least-two-lowercase condition", function () {
-      var validTargets = ["guay"];
+      var validTargets = ["gUay", "GUay"];
       var noValidTargets = ["gUAY"];
       evaluateCondition(validTargets, noValidTargets, 'at-least-x-lowercase', 2);
     });
@@ -88,14 +88,14 @@ describe('Service: FormCondition', function () {
 
   describe("at least x special char", function () {
     it("generate at-least-one-special-char condition", function () {
-      var validTargets = ["guay!"];
-      var noValidTargets = ["guay"];
+      var validTargets = ["guay!", "guay$", "g*ay"];
+      var noValidTargets = ["guay", "gu\\y", "gu<y", "gu>y", 'gu"y', "gu&y", "gu-y"];
       evaluateCondition(validTargets, noValidTargets, 'at-least-x-special', 1);
     });
 
     it("generate at-least-two-special-char condition", function () {
-      var validTargets = ["g$ay!!"];
-      var noValidTargets = ["guay!"];
+      var validTargets = ["g$ay!!", "g$ay!"];
+      var noValidTargets = ["guay!", "gu&y!", "g&-y"];
       evaluateCondition(validTargets, noValidTargets, 'at-least-x-special', 2);
     });
   });
