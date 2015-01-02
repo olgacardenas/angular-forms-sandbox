@@ -23,10 +23,16 @@ angular.module('angularFormsSandboxApp')
       return patt.test(target);
     }
 
+    function validateAtLeastXUppercase (target, value){
+      var patt = new RegExp("^(.*?[A-Z]){" + value + ",}.*$");
+      return patt.test(target);
+    }
+
     function getValidatorFn (validationType){
       switch (validationType){
         case 'max-size': return validateMaxSize;
         case 'at-least-x-number': return validateAtLeastXNumber;
+        case 'at-least-x-uppercase': return validateAtLeastXUppercase;
         default: return function (){};
       }
     }
