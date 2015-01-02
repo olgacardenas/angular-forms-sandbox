@@ -32,83 +32,71 @@ describe('Service: FormCondition', function () {
     });
   });
 
+  function evaluateCondition(validTargets, noValidTargets, validationType, validationValue) {
+    var condition = FormCondition.create({validate: validationType, value: validationValue});
+
+    angular.forEach(noValidTargets, function (value) {
+      expect(condition.isValid(value)).toBeFalsy();
+    });
+
+    angular.forEach(validTargets, function (value) {
+      expect(condition.isValid(value)).toBeTruthy();
+    });
+  }
+
   describe("at least x number condition", function () {
     it("generate at-least-one-number condition", function () {
-      var validTarget = "gu4y";
-      var noValidTarget = "guay";
-      var condition = FormCondition.create({validate: 'at-least-x-number', value: 1});
-
-      expect(condition.isValid(noValidTarget)).toBeFalsy();
-      expect(condition.isValid(validTarget)).toBeTruthy();
+      var validTargets = ["gu4y"];
+      var noValidTargets = ["guay"];
+      evaluateCondition(validTargets, noValidTargets, 'at-least-x-number', 1);
     });
 
     it("generate at-least-two-number condition", function () {
-      var validTarget = "gu4y123";
-      var noValidTarget = "gu4y";
-      var condition = FormCondition.create({validate: 'at-least-x-number', value: 2});
-
-      expect(condition.isValid(noValidTarget)).toBeFalsy();
-      expect(condition.isValid(validTarget)).toBeTruthy();
+      var validTargets = ["gu4y123"];
+      var noValidTargets = ["gu4y"];
+      evaluateCondition(validTargets, noValidTargets, 'at-least-x-number', 2);
     });
   });
 
   describe("at least x uppercase", function () {
     it("generate at-least-one-uppercase condition", function () {
-      var validTarget = "guAy";
-      var noValidTarget = "guay";
-      var condition = FormCondition.create({validate: 'at-least-x-uppercase', value: 1});
-
-      expect(condition.isValid(noValidTarget)).toBeFalsy();
-      expect(condition.isValid(validTarget)).toBeTruthy();
+      var validTargets = ["guAy"];
+      var noValidTargets = ["guay"];
+      evaluateCondition(validTargets, noValidTargets, 'at-least-x-uppercase', 1);
     });
 
     it("generate at-least-two-uppercase condition", function () {
-      var validTarget = "gUAY";
-      var noValidTarget = "guaY";
-      var condition = FormCondition.create({validate: 'at-least-x-uppercase', value: 2});
-
-      expect(condition.isValid(noValidTarget)).toBeFalsy();
-      expect(condition.isValid(validTarget)).toBeTruthy();
+      var validTargets = ["gUAY"];
+      var noValidTargets = ["guaY"];
+      evaluateCondition(validTargets, noValidTargets, 'at-least-x-uppercase', 2);
     });
   });
 
   describe("at least x lowercase", function () {
     it("generate at-least-one-lowercase condition", function () {
-      var validTarget = "GUaY";
-      var noValidTarget = "GUAY";
-      var condition = FormCondition.create({validate: 'at-least-x-lowercase', value: 1});
-
-      expect(condition.isValid(noValidTarget)).toBeFalsy();
-      expect(condition.isValid(validTarget)).toBeTruthy();
+      var validTargets = ["GUaY"];
+      var noValidTargets = ["GUAY"];
+      evaluateCondition(validTargets, noValidTargets, 'at-least-x-lowercase', 1);
     });
 
     it("generate at-least-two-lowercase condition", function () {
-      var validTarget = "guay";
-      var noValidTarget = "gUAY";
-      var condition = FormCondition.create({validate: 'at-least-x-lowercase', value: 2});
-
-      expect(condition.isValid(noValidTarget)).toBeFalsy();
-      expect(condition.isValid(validTarget)).toBeTruthy();
+      var validTargets = ["guay"];
+      var noValidTargets = ["gUAY"];
+      evaluateCondition(validTargets, noValidTargets, 'at-least-x-lowercase', 2);
     });
   });
 
   describe("at least x special char", function () {
     it("generate at-least-one-special-char condition", function () {
-      var validTarget = "guay!";
-      var noValidTarget = "guay";
-      var condition = FormCondition.create({validate: 'at-least-x-special', value: 1});
-
-      expect(condition.isValid(noValidTarget)).toBeFalsy();
-      expect(condition.isValid(validTarget)).toBeTruthy();
+      var validTargets = ["guay!"];
+      var noValidTargets = ["guay"];
+      evaluateCondition(validTargets, noValidTargets, 'at-least-x-special', 1);
     });
 
     it("generate at-least-two-special-char condition", function () {
-      var validTarget = "g$ay!!";
-      var noValidTarget = "guay!";
-      var condition = FormCondition.create({validate: 'at-least-x-special', value: 2});
-
-      expect(condition.isValid(noValidTarget)).toBeFalsy();
-      expect(condition.isValid(validTarget)).toBeTruthy();
+      var validTargets = ["g$ay!!"];
+      var noValidTargets = ["guay!"];
+      evaluateCondition(validTargets, noValidTargets, 'at-least-x-special', 2);
     });
   });
 

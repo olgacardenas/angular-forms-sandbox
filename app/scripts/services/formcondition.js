@@ -35,7 +35,7 @@ angular.module('angularFormsSandboxApp')
 
 
     function validateAtLeastXSpecial(target, value) {
-      var patt = new RegExp("^(.*?[!@#0^&*()+]){" + value + ",}.*$");
+      var patt = new RegExp("^(.*?[!@#0^*()+]){" + value + ",}.*$");
       return patt.test(target);
     }
 
