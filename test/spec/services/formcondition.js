@@ -13,17 +13,29 @@ describe('Service: FormCondition', function () {
 
   it("generates max size condition", function () {
     var targetValue = "1234";
-    var condition1 = FormCondition.create({validate: 'max-size', value: 10});
-    var condition2 = FormCondition.create({validate: 'max-size', value: 2});
-    expect(condition2.value).toBe(2);
-    expect(condition1.value).toBe(10);
-    expect(condition2.isValid(targetValue)).toBeFalsy();
-    expect(condition1.isValid(targetValue)).toBeTruthy();
+
+    var validCondition = FormCondition.create({validate: 'max-size', value: 10});
+    var noValidCondition = FormCondition.create({validate: 'max-size', value: 2});
+
+    expect(noValidCondition.value).toBe(2);
+    expect(validCondition.value).toBe(10);
+
+    expect(noValidCondition.isValid(targetValue)).toBeFalsy();
+    expect(validCondition.isValid(targetValue)).toBeTruthy();
   });
 
   it("ensure target values are not null or undefined", function () {
     var condition = FormCondition.create({validate: 'max-size', value: 10});
     expect(condition.isValid(null)).toBeFalsy();
     expect(condition.isValid(undefined)).toBeFalsy();
+  });
+
+  it("generate at-least-one-number condition", function () {
+    var validTarget = "gu4y";
+    var noValidTarget = "guay";
+    var condition = FormCondition.create({validate: 'at-least-x-number', value: 1});
+
+    expect(condition.isValid(noValidTarget)).toBeFalsy();
+    expect(condition.isValid(validTarget)).toBeTruthy();
   });
 });
