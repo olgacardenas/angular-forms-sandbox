@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name angularFormsSandboxApp.controller:AboutCtrl
+ * @name angularFormsSandboxApp.controller:RegisterCtrl
  * @description
- * # AboutCtrl
+ * # RegisterCtrl
  * Controller of the angularFormsSandboxApp
  */
 angular.module('angularFormsSandboxApp')
-  .controller('AboutCtrl', function ($scope) {
+  .controller('RegisterCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

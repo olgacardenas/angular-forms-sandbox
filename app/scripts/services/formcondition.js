@@ -1,12 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc service
- * @name angularFormsSandboxApp.FormCondition
- * @description
- * # FormCondition
- * Factory in the angularFormsSandboxApp.
- */
 angular.module('angularFormsSandboxApp')
   .factory('FormCondition', function () {
 
