@@ -12,12 +12,18 @@ describe('Service: FormCondition', function () {
   }));
 
   it("generates max size condition", function () {
-    var targetValue ="1234";
-    var condition1 = FormCondition.create({ type: 'max-size', value: 10});
-    var condition2 = FormCondition.create({ type: 'max-size', value: 2});
+    var targetValue = "1234";
+    var condition1 = FormCondition.create({validate: 'max-size', value: 10});
+    var condition2 = FormCondition.create({validate: 'max-size', value: 2});
     expect(condition2.value).toBe(2);
     expect(condition1.value).toBe(10);
     expect(condition2.isValid(targetValue)).toBeFalsy();
     expect(condition1.isValid(targetValue)).toBeTruthy();
+  });
+
+  it("ensure target values are not null or undefined", function () {
+    var condition = FormCondition.create({validate: 'max-size', value: 10});
+    expect(condition.isValid(null)).toBeFalsy();
+    expect(condition.isValid(undefined)).toBeFalsy();
   });
 });
