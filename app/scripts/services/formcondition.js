@@ -32,6 +32,15 @@ angular.module('angularFormsSandboxApp')
       atLeastXSpecial: function (target, value) {
         var patt = new RegExp("^(.*?[!@#$0^*()+]){" + value + ",}.*$");
         return patt.test(target);
+      },
+      atLeastXOf: function (target, conf) {
+        var validCount = 0;
+        angular.forEach(conf.value.validators, function(validator){
+          if (isValid(validator, target)){
+            validCount++;
+          }
+        });
+        return validCount >= conf.value.count;
       }
     };
 
@@ -47,20 +56,25 @@ angular.module('angularFormsSandboxApp')
           return validate.atLeastXLowercase;
         case 'at-least-x-special':
           return validate.atLeastXSpecial;
+        case 'at-least-x-of':
+          return validate.atLeastXOf;
         default:
           return function () {
           };
       }
     }
 
-    var create = function (conf) {
+    function isValid (conf, target){
       var validator = getValidatorFn(conf.validate);
+      return !validate.isNullOrUndefined(target) && validator(target, conf.value)
+    }
 
+    var create = function (conf) {
       return {
         validate: conf.validate,
         value: conf.value,
         isValid: function (target) {
-          return !validate.isNullOrUndefined(target) && validator(target, this.value);
+          return isValid (conf, target);
         }
       };
     };

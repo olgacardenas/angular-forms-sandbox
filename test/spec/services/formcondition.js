@@ -100,4 +100,38 @@ describe('Service: FormCondition', function () {
     });
   });
 
+  describe("at least x of given conditions", function () {
+    it("generate at-least-2-of conditions (one)", function () {
+      var validTargets = ["gU4y", "gu4y", "g*4y", "gUay", "Guay!", "guay!"];
+      var noValidTargets = ["1234", "GUAY", "guay", "$%*!"];
+      evaluateCondition(validTargets, noValidTargets, 'at-least-x-of', {
+        value: {
+          count: 2,
+          validators: [
+            {validate: 'at-least-x-number', value: 1},
+            {validate: 'at-least-x-uppercase', value: 1},
+            {validate: 'at-least-x-lowercase', value: 1},
+            {validate: 'at-least-x-special', value: 1}
+          ]
+        }
+      });
+    });
+
+    it("generate at-least-2-of conditions (several limits)", function () {
+      var validTargets = ["gU4Y$!", "gu$$4yYY", "gU**4Ay", "g$!UAy", "GUay!!", "!gUAy!"];
+      var noValidTargets = ["1234", "GUAY", "guay", "$%*!", "!gUay"];
+      evaluateCondition(validTargets, noValidTargets, 'at-least-x-of', {
+        value: {
+          count: 2,
+          validators: [
+            {validate: 'at-least-x-number', value: 1},
+            {validate: 'at-least-x-uppercase', value: 2},
+            {validate: 'at-least-x-lowercase', value: 1},
+            {validate: 'at-least-x-special', value: 2}
+          ]
+        }
+      });
+    });
+  });
+
 });
