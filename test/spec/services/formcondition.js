@@ -38,4 +38,13 @@ describe('Service: FormCondition', function () {
     expect(condition.isValid(noValidTarget)).toBeFalsy();
     expect(condition.isValid(validTarget)).toBeTruthy();
   });
+
+  it("generate at-least-two-number condition", function () {
+    var validTarget = "gu4y123";
+    var noValidTarget = "gu4y";
+    var condition = FormCondition.create({validate: 'at-least-x-number', value: 2});
+
+    expect(condition.isValid(noValidTarget)).toBeFalsy();
+    expect(condition.isValid(validTarget)).toBeTruthy();
+  });
 });

@@ -19,7 +19,7 @@ angular.module('angularFormsSandboxApp')
     }
 
     function validateAtLeastXNumber (target, value){
-      var patt = new RegExp(".*[0-9].*");
+      var patt = new RegExp("[0-9_]{" + value + "}");
       return patt.test(target);
     }
 
