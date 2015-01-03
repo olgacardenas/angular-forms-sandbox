@@ -105,15 +105,13 @@ describe('Service: FormCondition', function () {
       var validTargets = ["gU4y", "gu4y", "g*4y", "gUay", "Guay!", "guay!"];
       var noValidTargets = ["1234", "GUAY", "guay", "$%*!"];
       evaluateCondition(validTargets, noValidTargets, 'at-least-x-of', {
-        value: {
-          count: 2,
-          validators: [
-            {validate: 'at-least-x-number', value: 1},
-            {validate: 'at-least-x-uppercase', value: 1},
-            {validate: 'at-least-x-lowercase', value: 1},
-            {validate: 'at-least-x-special', value: 1}
-          ]
-        }
+        count: 2,
+        validators: [
+          {validate: 'at-least-x-number', value: 1},
+          {validate: 'at-least-x-uppercase', value: 1},
+          {validate: 'at-least-x-lowercase', value: 1},
+          {validate: 'at-least-x-special', value: 1}
+        ]
       });
     });
 
@@ -121,15 +119,13 @@ describe('Service: FormCondition', function () {
       var validTargets = ["gU4Y$!", "gu$$4yYY", "gU**4Ay", "g$!UAy", "GUay!!", "!gUAy!"];
       var noValidTargets = ["1234", "GUAY", "guay", "$%*!", "!gUay"];
       evaluateCondition(validTargets, noValidTargets, 'at-least-x-of', {
-        value: {
-          count: 2,
-          validators: [
-            {validate: 'at-least-x-number', value: 1},
-            {validate: 'at-least-x-uppercase', value: 2},
-            {validate: 'at-least-x-lowercase', value: 1},
-            {validate: 'at-least-x-special', value: 2}
-          ]
-        }
+        count: 2,
+        validators: [
+          {validate: 'at-least-x-number', value: 1},
+          {validate: 'at-least-x-uppercase', value: 2},
+          {validate: 'at-least-x-lowercase', value: 1},
+          {validate: 'at-least-x-special', value: 2}
+        ]
       });
     });
   });

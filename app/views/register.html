@@ -1,1 +1,23 @@
-<p>This is the register view.</p>
+<div class="row">
+  <div>
+    <form name="registerForm" novalidate ng-submit="onSubmit(formUser)">
+      <div class="well">
+        <div class="form-group">
+          <label>Username:</label>
+          <input name="userName" type="text" minlength="3" class="form-control" required ng-model="formUser.name" />
+          <div class="error" ng-show="registerForm.userName.$invalid && registerForm.userName.$dirty">
+            {{getError(registerForm.userName.$error)}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Password:</label>
+          <input password name="userPwd" type="password" class="form-control" required ng-model="formUser.password" />
+          <div class="error" ng-show="registerForm.userPwd.$invalid && registerForm.userPwd.$dirty">
+            {{getError(registerForm.userPwd.$error)}}
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" ng-disabled="registerForm.$invalid">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

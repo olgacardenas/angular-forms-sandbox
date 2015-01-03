@@ -28,12 +28,12 @@ angular.module('angularFormsSandboxApp')
       },
       atLeastXOf: function (target, conf) {
         var validCount = 0;
-        angular.forEach(conf.value.validators, function(validator){
+        angular.forEach(conf.validators, function(validator){
           if (isValid(validator, target)){
             validCount++;
           }
         });
-        return validCount >= conf.value.count;
+        return validCount >= conf.count;
       }
     };
 
