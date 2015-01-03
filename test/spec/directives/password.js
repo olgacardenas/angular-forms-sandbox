@@ -16,7 +16,6 @@ describe('Directive: password', function () {
   }));
 
   it('should pass with valid password', inject(function () {
-    console.log(form.$valid);
     form.somepassword.$setViewValue('3eR!');
     expect(scope.model.somepassword).toEqual('3eR!');
     expect(form.$valid).toBe(true);

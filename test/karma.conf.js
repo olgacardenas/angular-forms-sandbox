@@ -3,7 +3,7 @@
 // Generated on 2015-01-02 using
 // generator-karma 0.8.3
 
-module.exports = function(config) {
+module.exports = function (config) {
   'use strict';
 
   config.set({
@@ -31,6 +31,21 @@ module.exports = function(config) {
       'test/spec/**/*.js'
     ],
 
+    reporters: ['progress', 'coverage'],
+
+    preprocessors: {
+      // source files, that you wanna generate coverage for
+      // do not include tests or libraries
+      // (these files will be instrumented by Istanbul)
+      'app/scripts/**/*.js': ['coverage']
+    },
+
+    // optionally, configure the reporter
+    coverageReporter: {
+      type: 'html',
+      dir: 'coverage/'
+    },
+
     // list of files / patterns to exclude
     exclude: [],
 
@@ -51,6 +66,7 @@ module.exports = function(config) {
 
     // Which plugins to enable
     plugins: [
+      'karma-coverage',
       'karma-phantomjs-launcher',
       'karma-jasmine'
     ],
